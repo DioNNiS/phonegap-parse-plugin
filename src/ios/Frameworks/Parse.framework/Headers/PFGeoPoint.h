@@ -1,16 +1,27 @@
-//
-//  PFGeoPoint.h
-//
-//  Copyright 2011-present Parse Inc. All rights reserved.
-//
+/**
+ * Copyright (c) 2015-present, Parse, LLC.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
-#import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Foundation/Foundation.h>
+
+#import <Parse/PFNullability.h>
+
+PF_ASSUME_NONNULL_BEGIN
+
+@class PFGeoPoint;
+
+typedef void(^PFGeoPointResultBlock)(PFGeoPoint *PF_NULLABLE_S geoPoint, NSError *PF_NULLABLE_S error);
 
 /*!
  `PFGeoPoint` may be used to embed a latitude / longitude point as the value for a key in a <PFObject>.
  It could be used to perform queries in a geospatial manner using <[PFQuery whereKey:nearGeoPoint:]>.
- 
+
  Currently, instances of <PFObject> may only have one key associated with a `PFGeoPoint` type.
  */
 @interface PFGeoPoint : NSObject <NSCopying, NSCoding>
@@ -24,7 +35,7 @@
 
  @returns Returns a new `PFGeoPoint`.
  */
-+ (PFGeoPoint *)geoPoint;
++ (instancetype)geoPoint;
 
 /*!
  @abstract Creates a new `PFGeoPoint` object for the given `CLLocation`, set to the location's coordinates.
@@ -33,7 +44,7 @@
 
  @returns Returns a new PFGeoPoint at specified location.
  */
-+ (PFGeoPoint *)geoPointWithLocation:(CLLocation *)location;
++ (instancetype)geoPointWithLocation:(PF_NULLABLE CLLocation *)location;
 
 /*!
  @abstract Create a new `PFGeoPoint` object with the specified latitude and longitude.
@@ -43,15 +54,15 @@
 
  @returns New point object with specified latitude and longitude.
  */
-+ (PFGeoPoint *)geoPointWithLatitude:(double)latitude longitude:(double)longitude;
++ (instancetype)geoPointWithLatitude:(double)latitude longitude:(double)longitude;
 
 /*!
  @abstract Fetches the current device location and executes a block with a new `PFGeoPoint` object.
 
- @param geoPointHandler A block which takes the newly created `PFGeoPoint` as an argument.
+ @param resultBlock A block which takes the newly created `PFGeoPoint` as an argument.
  It should have the following argument signature: `^(PFGeoPoint *geoPoint, NSError *error)`
  */
-+ (void)geoPointForCurrentLocationInBackground:(void(^)(PFGeoPoint *geoPoint, NSError *error))geoPointHandler;
++ (void)geoPointForCurrentLocationInBackground:(PF_NULLABLE PFGeoPointResultBlock)resultBlock;
 
 ///--------------------------------------
 /// @name Controlling Position
@@ -78,7 +89,7 @@
 
  @returns Distance in radians between the receiver and `point`.
  */
-- (double)distanceInRadiansTo:(PFGeoPoint *)point;
+- (double)distanceInRadiansTo:(PF_NULLABLE PFGeoPoint *)point;
 
 /*!
  @abstract Get distance in miles from this point to specified point.
@@ -87,7 +98,7 @@
 
  @returns Distance in miles between the receiver and `point`.
  */
-- (double)distanceInMilesTo:(PFGeoPoint *)point;
+- (double)distanceInMilesTo:(PF_NULLABLE PFGeoPoint *)point;
 
 /*!
  @abstract Get distance in kilometers from this point to specified point.
@@ -96,6 +107,8 @@
 
  @returns Distance in kilometers between the receiver and `point`.
  */
-- (double)distanceInKilometersTo:(PFGeoPoint *)point;
+- (double)distanceInKilometersTo:(PF_NULLABLE PFGeoPoint *)point;
 
 @end
+
+PF_ASSUME_NONNULL_END

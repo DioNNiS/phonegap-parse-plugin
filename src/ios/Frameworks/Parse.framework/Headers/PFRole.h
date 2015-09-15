@@ -1,18 +1,19 @@
-//
-//  PFRole.h
-//
-//  Copyright 2011-present Parse Inc. All rights reserved.
-//
+/**
+ * Copyright (c) 2015-present, Parse, LLC.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
+#import <Parse/PFNullability.h>
 #import <Parse/PFObject.h>
 #import <Parse/PFSubclassing.h>
-#else
-#import <ParseOSX/PFObject.h>
-#import <ParseOSX/PFSubclassing.h>
-#endif
+
+PF_ASSUME_NONNULL_BEGIN
 
 /*!
  The `PFRole` class represents a Role on the Parse server.
@@ -23,7 +24,7 @@
 
  Roles must have a name (which cannot be changed after creation of the role), and must specify an ACL.
  */
-@interface PFRole : PFObject<PFSubclassing>
+@interface PFRole : PFObject <PFSubclassing>
 
 ///--------------------------------------
 /// @name Creating a New Role
@@ -32,35 +33,35 @@
 /*!
  @abstract Constructs a new `PFRole` with the given name.
  If no default ACL has been specified, you must provide an ACL for the role.
- 
+
  @param name The name of the Role to create.
  */
 - (instancetype)initWithName:(NSString *)name;
 
 /*!
  @abstract Constructs a new `PFRole` with the given name.
- 
+
  @param name The name of the Role to create.
  @param acl The ACL for this role. Roles must have an ACL.
  */
-- (instancetype)initWithName:(NSString *)name acl:(PFACL *)acl;
+- (instancetype)initWithName:(NSString *)name acl:(PF_NULLABLE PFACL *)acl;
 
 /*!
  @abstract Constructs a new `PFRole` with the given name.
 
  @discussion If no default ACL has been specified, you must provide an ACL for the role.
- 
+
  @param name The name of the Role to create.
  */
 + (instancetype)roleWithName:(NSString *)name;
 
 /*!
  @abstract Constructs a new `PFRole` with the given name.
- 
+
  @param name The name of the Role to create.
  @param acl The ACL for this role. Roles must have an ACL.
  */
-+ (instancetype)roleWithName:(NSString *)name acl:(PFACL *)acl;
++ (instancetype)roleWithName:(NSString *)name acl:(PF_NULLABLE PFACL *)acl;
 
 ///--------------------------------------
 /// @name Role-specific Properties
@@ -94,13 +95,6 @@
  */
 @property (nonatomic, strong, readonly) PFRelation *roles;
 
-///--------------------------------------
-/// @name Querying for Roles
-///--------------------------------------
-
-/*!
- @abstract Creates a <PFQuery> for `PFRole` objects.
- */
-+ (PFQuery *)query;
-
 @end
+
+PF_ASSUME_NONNULL_END

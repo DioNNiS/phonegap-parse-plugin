@@ -1,20 +1,29 @@
-//
-//  PFConfig.h
-//
-//  Copyright 2011-present Parse Inc. All rights reserved.
-//
+/**
+ * Copyright (c) 2015-present, Parse, LLC.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <Foundation/Foundation.h>
 
-@class BFTask;
+#import <Bolts/BFTask.h>
+
+#import <Parse/PFConstants.h>
+#import <Parse/PFNullability.h>
+
+PF_ASSUME_NONNULL_BEGIN
+
 @class PFConfig;
 
-typedef void(^PFConfigResultBlock)(PFConfig *config, NSError *error);
+typedef void(^PFConfigResultBlock)(PFConfig *PF_NULLABLE_S config, NSError *PF_NULLABLE_S error);
 
 /*!
  `PFConfig` is a representation of the remote configuration object.
  It enables you to add things like feature gating, a/b testing or simple "Message of the day".
-*/
+ */
 @interface PFConfig : NSObject
 
 ///--------------------------------------
@@ -39,7 +48,7 @@ typedef void(^PFConfigResultBlock)(PFConfig *config, NSError *error);
 
  @returns Instance of `PFConfig` if the operation succeeded, otherwise `nil`.
  */
-+ (PFConfig *)getConfig;
++ (PF_NULLABLE PFConfig *)getConfig PF_SWIFT_UNAVAILABLE;
 
 /*!
  @abstract Gets the `PFConfig` object *synchronously* from the server and sets an error if it occurs.
@@ -48,7 +57,7 @@ typedef void(^PFConfigResultBlock)(PFConfig *config, NSError *error);
 
  @returns Instance of PFConfig if the operation succeeded, otherwise `nil`.
  */
-+ (PFConfig *)getConfig:(NSError **)error;
++ (PF_NULLABLE PFConfig *)getConfig:(NSError **)error;
 
 /*!
  @abstract Gets the `PFConfig` *asynchronously* and sets it as a result of a task.
@@ -63,7 +72,7 @@ typedef void(^PFConfigResultBlock)(PFConfig *config, NSError *error);
  @param block The block to execute.
  It should have the following argument signature: `^(PFConfig *config, NSError *error)`.
  */
-+ (void)getConfigInBackgroundWithBlock:(PFConfigResultBlock)block;
++ (void)getConfigInBackgroundWithBlock:(PF_NULLABLE PFConfigResultBlock)block;
 
 ///--------------------------------------
 /// @name Parameters
@@ -76,7 +85,7 @@ typedef void(^PFConfigResultBlock)(PFConfig *config, NSError *error);
 
  @returns The value associated with `key`, or `nil` if there is no such value.
  */
-- (id)objectForKey:(NSString *)key;
+- (PF_NULLABLE_S id)objectForKey:(NSString *)key;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -90,6 +99,8 @@ typedef void(^PFConfigResultBlock)(PFConfig *config, NSError *error);
 
  @returns The value associated with `key`, or `nil` if there is no such value.
  */
-- (id)objectForKeyedSubscript:(NSString *)keyedSubscript;
+- (PF_NULLABLE_S id)objectForKeyedSubscript:(NSString *)keyedSubscript;
 
 @end
+
+PF_ASSUME_NONNULL_END
