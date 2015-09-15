@@ -17,8 +17,8 @@ Installation
 Pick one of these two commands:
 
 ```
-phonegap local plugin add https://github.com/benjie/phonegap-parse-plugin --variable APP_ID=PARSE_APP_ID --variable CLIENT_KEY=PARSE_CLIENT_KEY
-cordova plugin add https://github.com/benjie/phonegap-parse-plugin --variable APP_ID=PARSE_APP_ID --variable CLIENT_KEY=PARSE_CLIENT_KEY
+phonegap local plugin add https://github.com/avivais/phonegap-parse-plugin --variable APP_ID=PARSE_APP_ID --variable CLIENT_KEY=PARSE_CLIENT_KEY
+cordova plugin add https://github.com/avivais/phonegap-parse-plugin --variable APP_ID=PARSE_APP_ID --variable CLIENT_KEY=PARSE_CLIENT_KEY
 ```
 
 Initial Setup
@@ -127,6 +127,15 @@ And add your application name to `AndroidManifest.xml`:
 ```xml
 <application android:name="my.package.namespace.App" ... >...</application>
 ```
+
+Parse version
+-------------
+
+Parse iOS - 1.8.3
+
+Parse Android - 1.9.0
+
+Parse WP8 - ...
 
 
 Compatibility
